@@ -1,19 +1,14 @@
-
-
 def create_codon_dict(file_path):
     with open(file_path, 'r') as file:
-        rows = file.readlines()  
-
-    codon_to_amino = {}
-
+        rows = file.readlines()
+    codon_dict = {}
     for row in rows:
-        row = row.strip()  # הסרת רווחים מיותרים בתחילת וסוף השורה
-        if not row:  
-            continue
+        row = row.strip()
+        cells = row.split('\t')
+        if len(cells) >= 4:
+            codon = cells[0]  
+            amino_acid = cells[2]  
+            codon_dict[codon] = amino_acid
 
-        split_row = row.split()  
+    return codon_dict
 
-        if len(split_row) >= 2:  
-            codon_to_amino[split_row[0]] = split_row[1] 
-
-    return codon_to_amino  
